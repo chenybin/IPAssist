@@ -1,0 +1,51 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{9F0AA0A9-C183-4B69-B913-3CC1AF0A576A}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="IPAssist.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\DLL\Registry\Register.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\Register\Register.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="IPAssist">
+        <MSBuild Projects="IPAssist.dproj"/>
+    </Target>
+    <Target Name="IPAssist:Clean">
+        <MSBuild Projects="IPAssist.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="IPAssist:Make">
+        <MSBuild Projects="IPAssist.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Register">
+        <MSBuild Projects="..\Register\Register.dproj"/>
+    </Target>
+    <Target Name="Register:Clean">
+        <MSBuild Projects="..\Register\Register.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Register:Make">
+        <MSBuild Projects="..\Register\Register.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="IPAssist;Register;Register"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="IPAssist:Clean;Register:Clean;Register:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="IPAssist:Make;Register:Make;Register:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
